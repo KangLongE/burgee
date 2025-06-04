@@ -1,0 +1,3 @@
+﻿  read_question.c
+C:\Users\user\Desktop\project\read_question\read_question.c(13,11): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  read_question.vcxproj -> C:\Users\user\Desktop\project\read_question\x64\Debug\read_question.exe

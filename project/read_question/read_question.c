@@ -16,23 +16,45 @@ void random(int n) {
     fp = fopen("question.txt", "r");
 
     int i = 0;
-    int number[MAX_INDEX];
-    
+    int question_num[MAX_INDEX];
+	
     while (i < n) {
 
-		int random = rand() % 2 + 1; // 총 문제 수 입력
-        int nk = 1;
+	int random = rand() % 2 + 1; // 총 문제 수 입력
+        int nk1 = 1;
 
         for (int j = 0; j < i; j++) {
-            if (number[j] == random) {
-                nk = 0;
+            if (question_num[j] == random) {
+                nk1 = 0;
+                break;
+            }
+        }
+
+	
+        if (nk1) {
+            question_num[i] = random;
+            i++;
+        }
+		// 중복되지 않는 랜덤 번호 생성
+    }
+
+	int i = 0;
+	int multi_choice_num;
+	while (i < n) {
+
+	int random = rand() % 5 + 1; // 문제 선택 보기가 랜덤하게 나오는 함수
+        int nk2 = 1;
+
+        for (int j = 0; j < i; j++) {
+            if (multi_choice_num[j] == random) {
+                nk2 = 0;
                 break;
             }
         }
 
 
-        if (nk) {
-            number[i] = random;
+        if (nk2) {
+            multi_choice_num[i] = random;
             i++;
         }
 		// 중복되지 않는 랜덤 번호 생성

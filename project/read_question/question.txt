@@ -32,11 +32,11 @@ case
 2
 다음 중 C 언어에서 문자 하나를 저장하기에 적절한 자료형은 무엇인가?
 
-A. int
-B. float
-C. char
-D. double
-E. long
+int
+float
+char
+double
+long
 3
 다음 중 C 언어에서 배열을 선언하는 방법으로 올바른 것은 무엇인가?
 

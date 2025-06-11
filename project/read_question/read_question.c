@@ -1,5 +1,3 @@
-﻿
-
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_INDEX 1024
 #include <stdio.h>
@@ -60,7 +58,7 @@ void random(int n) {
 
     while (i < n) {
 
-        int random = rand() % 2 + 1; // 총 문제 수 입력
+        int random = rand() % 30 + 1; // 총 문제 수 입력
         int nk = 1;
 
         for (int j = 0; j < i; j++) {
@@ -78,8 +76,9 @@ void random(int n) {
         // 중복되지 않는 랜덤 번호 생성
     }
 
+
     int useranswer[MAX_INDEX] = { 1 };
-    char correct_answer[MAX_INDEX] = { 0 };
+    int correct_answer[100] = { 0 };
 
     for (int i = 0; i < n; i++) {
 
@@ -128,7 +127,8 @@ void random(int n) {
         for (int k = 0; k < 5; k++) {
             if (indices[k] == correct_idx) {
                 new_correct = k + 1;
-                // 사용자 기준 보기 1~5
+				correct_answer[i] = new_correct;
+                // 사용자 기준 보기 1~5로 설정
                 break;
             }
         }
@@ -163,11 +163,10 @@ void random(int n) {
         if (useranswer[i])
             printf("문제%d : 정답!\n", i + 1);
         else
-            printf("문제%d : 틀림..\n", i + 1);
+            printf("문제%d : 틀림.. (답 : %d)\n", i + 1, correct_answer[i]);
     }
     //정답 확인
 
     fclose(fp);
 
 }
-

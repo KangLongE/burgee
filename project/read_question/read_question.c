@@ -1,24 +1,23 @@
-﻿
-
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_INDEX 1024
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 void shuffle(int* arr, int size);
-void random(int n);
+void question(int n);
 
 
-int main()
+int main(void)
 {
+    
+
 
     int choice;
 
-
-	
-   while (1) {
+    while (1) {
         printf("1. 문제 10개 풀기\n2. 문제 20개 풀기\n3. 문제 30개 풀기\n");
         printf("선택지를 입력해 주세요 : ");
         scanf_s("%d", &choice);
@@ -26,12 +25,12 @@ int main()
 
         if (choice >= 1 && choice <= 3) {
             printf("%d개 문제 풀기에 들어갑니다.\n\n", choice * 10);
-            random(choice * 10);
+            question(choice * 10);
             break;
         }
         else {
-			printf("잘못된 입력입니다. 다시 입력해주세요.\n");
-			continue;
+            printf("잘못된 입력입니다. 다시 입력해주세요.\n");
+            continue;
         }
     }
 
@@ -48,19 +47,24 @@ void shuffle(int* arr, int size) {
     }
 }
 
-void random(int n) {
+void question(int n) {
 
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
 
     FILE* fp;
     fp = fopen("question.txt", "r");
 
+    if (fp == NULL) {
+            printf("파일을 열 수 없습니다.\n");
+            exit(1);
+    }
+
     int i = 0;
-    int number[MAX_INDEX];
+    int* number = (int*)malloc(sizeof(int) * n);
 
     while (i < n) {
 
-        int random = rand() % 2 + 1; // 총 문제 수 입력
+        int random = rand() % 30 + 1; // 총 문제 수 입력
         int nk = 1;
 
         for (int j = 0; j < i; j++) {
@@ -78,8 +82,10 @@ void random(int n) {
         // 중복되지 않는 랜덤 번호 생성
     }
 
-    int useranswer[MAX_INDEX] = { 1 };
-    char correct_answer[MAX_INDEX] = { 0 };
+	
+
+    int* useranswer = (int*)malloc(sizeof(int) * n);
+    int* correct_answer = (int*)malloc(sizeof(int) * n);
 
     for (int i = 0; i < n; i++) {
 
@@ -128,7 +134,8 @@ void random(int n) {
         for (int k = 0; k < 5; k++) {
             if (indices[k] == correct_idx) {
                 new_correct = k + 1;
-                // 사용자 기준 보기 1~5
+                correct_answer[i] = new_correct;
+                // 사용자 기준 보기 1~5로 설정
                 break;
             }
         }
@@ -159,15 +166,19 @@ void random(int n) {
 
     }
 
+    free(number);
+
     for (int i = 0; i < n; i++) {
         if (useranswer[i])
             printf("문제%d : 정답!\n", i + 1);
         else
-            printf("문제%d : 틀림..\n", i + 1);
+            printf("문제%d : 틀림.. (답 : %d)\n", i + 1, correct_answer[i]);
     }
     //정답 확인
+
+    free(useranswer);
+    free(correct_answer);
 
     fclose(fp);
 
 }
-

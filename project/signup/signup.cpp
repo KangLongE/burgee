@@ -17,6 +17,7 @@ int main(void)
 
     FILE* fp;
     fp = fopen("UserData.txt", "w");
+    // UserData.txt 파일 열기
 
     if (fp == NULL) {
         printf("파일 열기 실패\n");
@@ -26,7 +27,7 @@ int main(void)
 
     printf("이름을 입력하세요: ");
     fgets(user.name, sizeof(user.name), stdin);
-
+	// UserData.txt 파일에 이름 입력
     fprintf(fp, "name: %s", user.name);
 
     printf(" 비밀번호를 4자리 숫자로 입력하세요: ");
@@ -48,6 +49,7 @@ int main(void)
             fprintf(fp, "-");
         }
     }
+	// UserData.txt 파일에 비밀번호 입력
 
 
 

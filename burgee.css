@@ -64,6 +64,11 @@ body{
     position: absolute;
     bottom: 100px;
 }
+.button button:hover {
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 .one button{
     width: 400px;
     height: 50px;

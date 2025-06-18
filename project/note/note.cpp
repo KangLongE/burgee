@@ -8,22 +8,50 @@
 #include <stdlib.h>
 #include <string.h>
 
-void write_note() {
+void create_note() {
+
+	char note_name[MAX_INDEX];
+
+	printf("메모의 이름을 적어주세요.\n");
+	scanf("%s", note_name);
+    getchar();
+    // 노트 이름을 작성
+
+    sprintf(note_name, "%s.txt", note_name);
+	// 파일 이름에 .txt 확장자를 추가
 
     FILE* fp;
-    fp = fopen("note.txt", "a");
 
-    if (fp == NULL) {
-        printf("파일 열기 실패\n");
-        return;
+    fp = fopen(note_name, "r");
+	// 파일이 이미 존재하는지 확인
+    if (fp != NULL) {
+        fclose(fp);
+        printf("이미 존재하는 메모입니다. 덮어쓰시겠습니까? (y/n): ");
+        char choice;
+        scanf(" %c", &choice);
+        getchar();
+        // 선택
+        if (choice != 'y' && choice != 'Y') {
+            return;
+			// 덮어쓰지 않으면 함수 종료
+		}
     }
 
+        printf("메모를 생성합니다.\n");
+		// 메모 생성
+
+    fp = fopen(note_name, "a");
+    // 파일 생성 그리고 작성
+
+	printf("메모를 작성하세요. 'a'를 입력하면 저장합니다.\n");
     char input[MAX_INDEX];
-    printf("메모를 입력하세요 (끝내려면 빈 줄 입력):\n");
+    bool save = false;
 
     while (1) {
         fgets(input, sizeof(input), stdin);
-        if (strcmp(input, "\n") == 0) break; // 빈 줄로 종료
+        if (input[0] == 'a') save = true;
+        if (save) break;
+        // HTML에서 저장 신호를 받으면 종료
         fputs(input, fp);
     }
 
@@ -31,21 +59,41 @@ void write_note() {
     printf("메모 저장 완료!\n");
 }
 
-void read_note() {
+void fix_note() {
 
-    FILE* fp = fopen("note.txt", "a");
+    bool save = true;
+    char note_name[MAX_INDEX] = { 0 };
+    char note_nametxt[MAX_INDEX] = { 0 };
+
+    printf("파일 이름 입력: ");
+	scanf("%s", note_name);
+	// 파일 이름 입력
+
+    sprintf(note_nametxt, "%s.txt", note_name);
+	// 파일 이름에 .txt 확장자를 추가
+
+    FILE* fp;
+    fp = fopen(note_nametxt, "r+");
+	// 파일 열기
+
     if (fp == NULL) {
         printf("파일 없음\n");
-        return;
+		printf("메모를 먼저 생성해주세요.\n");
+		return;
     }
 
+	printf("메모를 수정합니다.\n");
     char line[MAX_INDEX];
-    printf("저장된 메모:\n");
     while (fgets(line, sizeof(line), fp)) {
         printf("%s", line);
     }
+	// HTML로 작성된 메모를 출력 및 수정
 
-    fclose(fp);
+    if (save) {
+        printf("파일을 저장합니다.\n");
+        fclose(fp);
+    }
+	// 저장 버튼을 클릭하면 save로 받음 true면 저장
 }
 
 int main() {
@@ -53,17 +101,15 @@ int main() {
     int choice;
 
     while (1) {
-        printf("\n--- 메모장 ---\n");
-        printf("1. 메모 쓰기\n");
-        printf("2. 메모 읽기\n");
-        printf("3. 종료\n");
-        printf("선택: ");
         scanf_s("%d", &choice);
-        getchar(); // 개행 문자 제거
+        getchar();
+        // HTML에서 선택
 
         switch (choice) {
-        case 1: write_note(); break;
-        case 2: read_note(); break;
+        case 1: create_note(); break;
+        // 생성 버튼 클릭
+        case 2: fix_note(); break;
+        // 기존에 있는 메모 버튼 클릭
         case 3: exit(0);
         default: printf("잘못된 선택\n");
         }

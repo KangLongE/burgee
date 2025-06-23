@@ -12,17 +12,13 @@ struct User {
     int password[4];
 };
 
-struct ReadUser {
-    char name[MAX_INDEX];
-    int password[4];
-};
 
 int main(void)
 {
     struct User user;
-    struct ReadUser readuser;
+    struct User readuser;
 
-    FILE* fp = fopen("C:\\Users\\user\\Desktop\\project\\signup\\UserData.txt", "r");
+    FILE* fp = fopen("C:\\Users\\user\\Desktop\\project\\UserData.txt", "r");
 
     if (fp == NULL) {
         printf("파일 열기 실패\n");

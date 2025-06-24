@@ -18,27 +18,23 @@
 <div id="result"></div>
 
 <script>
-const quizUrl = 'https://raw.githubusercontent.com/KangLongE/burgee/main/project/question_read/question.txt'; // GitHub raw 경로
+const quizUrl = 'https://raw.githubusercontent.com/KangLongE/burgee/refs/heads/main/question.txt'; // GitHub raw 경로
 
 function parseQuestions(text) {
   const lines = text.trim().split('\n');
   const parsed = [];
-  for(let i=0; i < lines.length; ) {
-    const qText1 = lines[i++]?.trim() || '';
-    const qText2 = lines[i++]?.trim() || '';
-    const options = [];
-    for(let j=0; j<5; j++) {
-      options.push(lines[i++]?.trim() || '');
-    }
-    const answer = parseInt(lines[i++]?.trim(), 10);
-    parsed.push({
-      question: qText1 + (qText2 ? ' ' + qText2 : ''),
-      options,
-      answer
-    });
+
+  for(let i = 0; i < lines.length; i += 8) {
+    const options = lines.slice(i, i + 5).map(line => line.trim());
+    const answer = parseInt(lines[i + 5]?.trim(), 10);
+    const question = lines[i + 6]?.trim() || '';
+
+    parsed.push({ question, options, answer });
   }
+
   return parsed;
 }
+
 
 function pickRandomQuestions(allQuestions, count=10) {
   const shuffled = allQuestions.slice();
@@ -49,6 +45,25 @@ function pickRandomQuestions(allQuestions, count=10) {
   return shuffled.slice(0, count);
 }
 
+function shuffleOptions(question) {
+  if (!question || !question.options || !question.answer) return question;
+
+  const originalOptions = question.options.map((opt, idx) => ({
+    text: opt,
+    isAnswer: (idx + 1 === question.answer)
+  }));
+
+  for (let i = originalOptions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [originalOptions[i], originalOptions[j]] = [originalOptions[j], originalOptions[i]];
+  }
+
+  return {
+    question: question.question,
+    options: originalOptions.map(o => o.text),
+    answer: originalOptions.findIndex(o => o.isAnswer) + 1
+  };
+}
 
 
 function renderQuiz(questions) {

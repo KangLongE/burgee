@@ -4,48 +4,126 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>
-
-void shuffle(int* arr, int size);
-void question(int n);
+#include "question_read.h"
 
 
 int main(void)
 {
-    
+    N1 * carry = NULL;
     int choice;
+
 
     while (1) {
         printf("1. 문제 10개 풀기\n2. 문제 20개 풀기\n3. 문제 30개 풀기\n");
         printf("선택지를 입력해 주세요 : ");
-        scanf_s("%d", &choice);
+        scanf("%d", &choice);
         // 몇개의 문제를 풀지 선택
+
+        int * user_answer = (int*)malloc(sizeof(int) * (choice * 10));
 
         if (choice >= 1 && choice <= 3) {
             printf("%d개 문제 풀기에 들어갑니다.\n\n", choice * 10);
-            question(choice * 10);
-            break;
+            
+            carry = question_print(choice * 10);
+            
+
+            for (int i = 0; i < choice * 10; i++) {
+
+                printf("\n문제 %d: \n%s%s", i + 1, carry[i].question[0], carry[i].question[1]);
+                // 문제 출력 (문제 번호, 문제 내용)
+
+                for (int k = 0; k < 5; k++) {
+                    printf("%d. %s", k + 1, carry[i].options[carry[i].indices[k]]);
+                    // 섞인 보기 출력 (1~5로 번호 매기기)
+                }
+
+                // 사용자 입력 받기
+                int answer;
+                while (1) {
+                    printf("1 ~ 5까지의 문항 중 정답을 입력해 주세요 : ");
+                    scanf("%d", &answer);
+                    if (answer >= 1 && answer <= 5) {
+                        user_answer[i] = answer;
+                        break;
+                    }
+                    else {
+                        printf("잘못된 입력입니다.\n");
+						continue;
+                    }
+                }
+            }
+
+            correct_if(carry, user_answer, choice * 10);
+
         }
         else {
             printf("잘못된 입력입니다. 다시 입력해주세요.\n");
             continue;
         }
-    }
+    } 
 
 
 
 }
 
-void shuffle(int* arr, int size) {
-    for (int i = size - 1; i > 0; i--) {
-        int j = rand() % (i + 1);  // 0부터 i까지 중 랜덤 인덱스
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+int* correct_if(N1 *c, int * un, int n) {
+
+    int* true_answer = (int*)malloc(sizeof(int) * n);
+
+    if (true_answer == NULL) {
+        printf("메모리 할당 실패\n");
+        exit(1);
     }
+
+    for (int i = 0; i < n; i++) {
+
+        if (un[i] == c[i].correct_answer) {
+
+            true_answer[i] = 1;
+        }
+        else {
+            true_answer[i] = 0;
+        }
+        // 정답 비교 (정답이면 1, 틀리면 0 저장)
+
+    }
+
+    int point = 0;
+    for (int i = 0; i < n; i++) {
+        if (true_answer[i]) {
+
+            printf("문제%d : 정답!\n", i + 1);
+            point++;
+        }
+        else
+            printf("문제%d : 틀림.. (답 : %d)\n", i + 1, c[i].correct_answer);
+    }
+    //정답 확인
+
+
+
+    printf("\n총 %d문제 중 %d문제 맞췄습니다.\n", n, point);
+    printf("점수 : %.2f%%\n", (float)point / n * 100);
+    // 점수 출력 (맞춘 문제 수, 총 문제 수, 백분율)
+
+
+
+    return true_answer;
+	free(true_answer);
 }
 
-void question(int n) {
+
+N1 * question_print (int n) {
+
+    N1 * q = (N1 *)malloc(sizeof(N1) * n);
+    N1* c = q;
+
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < 5; j++) {
+            q[i].indices[j] = j;
+        }
+    }
 
     srand((unsigned int)time(NULL));
 
@@ -81,12 +159,6 @@ void question(int n) {
         // 중복되지 않는 랜덤 번호 생성
     }
 
-	
-
-    int* useranswer = (int*)malloc(sizeof(int) * n);
-    int* correct_answer = (int*)malloc(sizeof(int) * n);
-	// 사용자 답안과 정답 저장용 배열
-
     for (int i = 0; i < n; i++) {
         // 문제 수 만큼 출력 반복
 
@@ -103,22 +175,18 @@ void question(int n) {
 
         int curr_line = 0;
 		// 현재 줄 번호
-        char question[2][MAX_INDEX];
-        // 문제 2줄
-        char options[5][MAX_INDEX];
-        // 보기 5줄
         int correct_idx = -1;
         // 정답 인덱스 번호
 
         // 질문, 보기, 정답 읽기
         while (fgets(line, sizeof(line), fp)) {
-            if (curr_line == start_line) strcpy(question[0], line);
+            if (curr_line == start_line) strcpy(q[i].question[0], line);
             // 문제 읽기 1
-            else if (curr_line == start_line + 1) strcpy(question[1], line);
+            else if (curr_line == start_line + 1) strcpy(q[i].question[1], line);
             // 문제 읽기 2
             else if (curr_line >= start_line + 2 && curr_line < start_line + 7) {
 				// 보기 범위 2~6줄 읽기
-                strcpy(options[curr_line - start_line - 2], line);
+                strcpy(q[i].options[curr_line - start_line - 2], line);
             }
             else if (curr_line == start_line + 7) {
                 correct_idx = atoi(line) - 1;
@@ -130,72 +198,38 @@ void question(int n) {
 
 
         // 보기 섞기
-        int indices[5] = { 0, 1, 2, 3, 4 };
-        shuffle(indices, 5);
+        shuffle(q[i].indices, 5);
 
         int new_correct = -1;
 		// 새로운 정답 인덱스
         for (int k = 0; k < 5; k++) {
-            if (indices[k] == correct_idx) {
+            if (q[i].indices[k] == correct_idx) {
 				// 섞인 보기에서 정답 인덱스 찾기
                 new_correct = k + 1;
-                correct_answer[i] = new_correct;
+                q[i].correct_answer = new_correct;
 				// 해당 문제에 정답 저장 (사용자 보기 1~5로 번호 매기기)
                 break;
             }
         }
-
-        // 문제 출력
-        printf("\n문제 %d: \n%s%s", i + 1, question[0], question[1]);
-		// 문제 출력 (문제 번호, 문제 내용)
-        for (int k = 0; k < 5; k++) {
-            printf("%d. %s", k + 1, options[indices[k]]);
-			// 섞인 보기 출력 (1~5로 번호 매기기)
-        }
-
-        // 사용자 입력 받기
-        int answer;
-        while (1) {
-            printf("1 ~ 5까지의 문항 중 정답을 입력해 주세요 : ");
-            scanf_s("%d", &answer);
-            if (answer >= 1 && answer <= 5) break;
-            printf("잘못된 입력입니다.\n");
-        }
-
-        if (answer == new_correct) {
-
-            useranswer[i] = 1;
-        }
-        else {
-            useranswer[i] = 0;
-        }
-		// 정답 비교 (정답이면 1, 틀리면 0 저장)
 
 
     }
 
     free(number);
 
-    int point = 0;
-    for (int i = 0; i < n; i++) {
-        if (useranswer[i]) {
-
-            printf("문제%d : 정답!\n", i + 1);
-            point++;
-        }
-        else
-            printf("문제%d : 틀림.. (답 : %d)\n", i + 1, correct_answer[i]);
-    }
-    //정답 확인
-
-
-	printf("\n총 %d문제 중 %d문제 맞췄습니다.\n", n, point);
-	printf("점수 : %.2f%%\n", (float)point / n * 100);
-	// 점수 출력 (맞춘 문제 수, 총 문제 수, 백분율)
-
-    free(useranswer);
-    free(correct_answer);
-
     fclose(fp);
 
+    return q;
+	free(q);
+
+}
+
+
+void shuffle(int* arr, int size) {
+    for (int i = size - 1; i > 0; i--) {
+        int j = rand() % (i + 1);  // 0부터 i까지 중 랜덤 인덱스
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
 }

@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #define MAX_INDEX 1024
 #include <stdio.h>
 #include <time.h>

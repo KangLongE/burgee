@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c96ca7ef-f719-4b9e-a1a5-f5a5accf604b}</ProjectGuid>
-    <RootNamespace>questionread</RootNamespace>
+    <ProjectGuid>{518e5f28-eba3-496d-9f7d-4daa0690e0a8}</ProjectGuid>
+    <RootNamespace>point</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,10 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="question_read.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="question_read.h" />
+    <ClCompile Include="point.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

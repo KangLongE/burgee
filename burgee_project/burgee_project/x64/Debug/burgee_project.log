@@ -1,0 +1,14 @@
+﻿  ranking.c
+C:\Users\user\Desktop\burgee_project\ranking.c(32,15): warning C4047: '함수': 'char *'의 간접 참조 수준이 'char [12][256]'과(와) 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(32,15): warning C4024: 'fgets': 형식 및 실제 매개 변수 1의 형식이 서로 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(35,15): warning C4047: '함수': 'const char *'의 간접 참조 수준이 'char [12][256]'과(와) 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(35,15): warning C4024: 'strchr': 형식 및 실제 매개 변수 1의 형식이 서로 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(35,37): warning C4047: '함수': 'const char *'의 간접 참조 수준이 'char [12][256]'과(와) 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(35,37): warning C4024: 'strrchr': 형식 및 실제 매개 변수 1의 형식이 서로 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(37,26): warning C4047: '함수': 'const char *'의 간접 참조 수준이 'char [12][256]'과(와) 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(37,26): warning C4024: 'strchr': 형식 및 실제 매개 변수 1의 형식이 서로 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(39,27): warning C4047: '함수': 'const char *'의 간접 참조 수준이 'char [12][256]'과(와) 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(39,27): warning C4024: 'strrchr': 형식 및 실제 매개 변수 1의 형식이 서로 다릅니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(84,19): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Desktop\burgee_project\ranking.c(51,25): warning C4244: '초기화 중': '__int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  burgee_project.vcxproj -> C:\Users\user\Desktop\burgee_project\x64\Debug\burgee_project.exe

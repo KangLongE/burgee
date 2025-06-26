@@ -1,115 +1,67 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #define MAX_INDEX 1024
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-#include "question_read.h"
+
+//#include "question_read.h"
+
+typedef struct question {
+
+    char question[2][MAX_INDEX];
+    // 문제 2줄
+
+    char options[5][MAX_INDEX];
+    // 보기 5줄
+
+    int indices[5] = { 0, 1, 2, 3, 4 };
+    // 섞인 보기 index
+
+    int correct_answer;
+    // 각 문제 정답
+
+
+} N1;
+
+void shuffle(int* arr, int size);
+N1* question_print(int n);
 
 
 int main(void)
 {
-    N1 * carry = NULL;
-    int choice;
+    N1* carry = NULL;
+    int choice = 1;
 
 
-    while (1) {
-        printf("1. 문제 10개 풀기\n2. 문제 20개 풀기\n3. 문제 30개 풀기\n");
-        printf("선택지를 입력해 주세요 : ");
-        scanf("%d", &choice);
-        // 몇개의 문제를 풀지 선택
 
-        int * user_answer = (int*)malloc(sizeof(int) * (choice * 10));
 
-        if (choice >= 1 && choice <= 3) {
-            printf("%d개 문제 풀기에 들어갑니다.\n\n", choice * 10);
-            
-            carry = question_print(choice * 10);
-            
+    int* user_answer = (int*)malloc(sizeof(int) * (choice * 10));
 
-            for (int i = 0; i < choice * 10; i++) {
+    carry = question_print(choice * 10);
 
-                printf("\n문제 %d: \n%s%s", i + 1, carry[i].question[0], carry[i].question[1]);
-                // 문제 출력 (문제 번호, 문제 내용)
 
-                for (int k = 0; k < 5; k++) {
-                    printf("%d. %s", k + 1, carry[i].options[carry[i].indices[k]]);
-                    // 섞인 보기 출력 (1~5로 번호 매기기)
-                }
+    for (int i = 0; i < choice * 10; i++) {
 
-                // 사용자 입력 받기
-                int answer;
-                while (1) {
-                    printf("1 ~ 5까지의 문항 중 정답을 입력해 주세요 : ");
-                    scanf("%d", &answer);
-                    if (answer >= 1 && answer <= 5) {
-                        user_answer[i] = answer;
-                        break;
-                    }
-                    else {
-                        printf("잘못된 입력입니다.\n");
-						continue;
-                    }
-                }
-            }
+        printf("\n문제 %d: \n%s%s", i + 1, carry[i].question[0], carry[i].question[1]);
+        // 문제 출력 (문제 번호, 문제 내용)
 
-            correct_if(carry, user_answer, choice * 10);
-
+        for (int k = 0; k < 5; k++) {
+            printf("%d. %s", k + 1, carry[i].options[carry[i].indices[k]]);
+            // 섞인 보기 출력 (1~5로 번호 매기기)
         }
-        else {
-            printf("잘못된 입력입니다. 다시 입력해주세요.\n");
-            continue;
-        }
-    } 
 
-
-
-}
-
-int* correct_if(N1 *c, int * un, int n) {
-
-    int* true_answer = (int*)malloc(sizeof(int) * n);
-
-    if (true_answer == NULL) {
-        printf("메모리 할당 실패\n");
-        exit(1);
-    }
-
-    for (int i = 0; i < n; i++) {
-
-        if (un[i] == c[i].correct_answer) {
-
-            true_answer[i] = 1;
-        }
-        else {
-            true_answer[i] = 0;
-        }
-        // 정답 비교 (정답이면 1, 틀리면 0 저장)
+        
 
     }
 
-    int point = 0;
-    for (int i = 0; i < n; i++) {
-        if (true_answer[i]) {
-
-            printf("문제%d : 정답!\n", i + 1);
-            point++;
-        }
-        else
-            printf("문제%d : 틀림.. (답 : %d)\n", i + 1, c[i].correct_answer);
-    }
-    //정답 확인
+    for(int i = 0; i < choice * 10; i++) {
+        printf("\n문제 %d의 정답은 %d입니다.\n", i + 1, carry[i].correct_answer);
+        // 각 문제의 정답 출력
+	}
 
 
 
-    printf("\n총 %d문제 중 %d문제 맞췄습니다.\n", n, point);
-    printf("점수 : %.2f%%\n", (float)point / n * 100);
-    // 점수 출력 (맞춘 문제 수, 총 문제 수, 백분율)
-
-
-
-    return true_answer;
-	free(true_answer);
 }
 
 
@@ -141,7 +93,7 @@ N1 * question_print (int n) {
 
     while (i < n) {
 
-        int random = rand() % 30 + 1; // 파일에 있는 총 문제 수 입력
+        int random = rand() % 30; // 파일에 있는 총 문제 수 입력
         int nk = 1;
 
         for (int j = 0; j < i; j++) {
@@ -220,7 +172,6 @@ N1 * question_print (int n) {
     fclose(fp);
 
     return q;
-	free(q);
 
 }
 

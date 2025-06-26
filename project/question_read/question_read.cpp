@@ -43,11 +43,11 @@ int main(void)
 
     for (int i = 0; i < choice * 10; i++) {
 
-        printf("\n문제 %d: \n%s%s", i + 1, carry[i].question[0], carry[i].question[1]);
+        printf("\n%s%s", carry[i].question[0], carry[i].question[1]);
         // 문제 출력 (문제 번호, 문제 내용)
 
         for (int k = 0; k < 5; k++) {
-            printf("%d. %s", k + 1, carry[i].options[carry[i].indices[k]]);
+            printf("%s", carry[i].options[carry[i].indices[k]]);
             // 섞인 보기 출력 (1~5로 번호 매기기)
         }
 
@@ -56,7 +56,7 @@ int main(void)
     }
 
     for(int i = 0; i < choice * 10; i++) {
-        printf("\n문제 %d의 정답은 %d입니다.\n", i + 1, carry[i].correct_answer);
+        printf("%d\n", carry[i].correct_answer);
         // 각 문제의 정답 출력
 	}
 

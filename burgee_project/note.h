@@ -1,7 +1,11 @@
 #ifndef NOTE_H
 #define NOTE_H
 
-void create_note(void);
-void fix_note(void);
+typedef struct note_list {
+    char note_name[MAX_INDEX];
+    int num;
+}nl;
 
+nl* check_note();
+int create_note(char* name);
 #endif

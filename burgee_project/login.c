@@ -7,42 +7,49 @@
 #include <string.h>
 #include "sign_log.h"
 
-int success = 0; // 로그인 성공 여부를 나타내는 전역 변수
+// 로그인 기능 파일
 
-void login(void){
+int success = 0;
+// 로그인 성공 여부를 나타내는 전역 변수
+
+
+
+void login(char * name, int * password){
+//login_print.c 로부터 호출  [sign_log.h]
+
+//name[MAX_INDEX]
+//password[4]
 
     struct User user;
+    //입력 받은 값을 저장할 구조체  [sign_log.h]
+
+	strcpy(user.name, name);
+    //입력 받은 네임 값 넣기
+
+    for (int i = 0; i < 4; i++) {
+        user.password[i] = password[i];
+	}
+    // 입력 받은 패스워드 값 넣기
+
+
     struct User readuser;
+    //파일에서 읽을 값을 저장할 구조체    [sign_log.h]
 
     FILE* fp = fopen("UserData.txt", "r");
+	// 파일 열기
 
     if (fp == NULL) {
         printf("파일 열기 실패\n");
         exit(1);
     }
 
-    printf("login\n\n");
-    // 사용자 입력
-    printf("이름을 입력하세요: ");
-    fgets(user.name, sizeof(user.name), stdin);
-    user.name[strcspn(user.name, "\n")] = '\0';
-    // 사용자가 이름 입력
-
-    printf("비밀번호를 4자리 숫자로 입력하세요 (각 숫자 입력 후 Enter): ");
-    for (int i = 0; i < 4; i++) {
-        scanf_s("%d", &user.password[i]);
-
-        if (user.password[i] < 0 || user.password[i] > 9) {
-            printf("잘못된 입력입니다. 0에서 9 사이의 숫자를 입력하세요.\n");
-            i--;
-        }
-        // 사용자가 비밀번호 입력
-    }
-
-
+    
     // 파일에서 데이터 읽기
+
     char nameLine[MAX_INDEX];
+    //파일 이름 읽을 줄
     char passwordLine[MAX_INDEX];
+    //파일 비밀번호 읽을 줄 
 
     fgets(nameLine, sizeof(nameLine), fp); // name 줄 읽기
     fgets(passwordLine, sizeof(passwordLine), fp); // password 줄 읽기
@@ -65,17 +72,14 @@ void login(void){
         }
 
         if (match) {
-            printf("로그인 성공!\n");
             success = 1;
         }
         else {
-            printf("비밀번호가 일치하지 않습니다.\n");
-            success = 0;
+            success = -2;
         }
     }
     else {
-        printf("이름이 일치하지 않습니다.\n");
-        success = 0;
+        success = -1;
     }
     // 파일에 저장된 사용자 이름과 비밀번호와 비교하여 로그인 성공 여부 출력
 

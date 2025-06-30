@@ -124,10 +124,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="login.c" />
+    <ClCompile Include="note_print.c" />
+    <ClCompile Include="question_print.c" />
+    <ClCompile Include="signup_print.c" />
+    <ClCompile Include="login_print.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="signup.c" />
     <ClCompile Include="note.c" />
-    <ClCompile Include="question_print.c" />
+    <ClCompile Include="question_logic.c" />
     <ClCompile Include="point.c" />
     <ClCompile Include="ranking.c" />
   </ItemGroup>

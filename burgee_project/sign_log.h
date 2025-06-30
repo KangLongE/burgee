@@ -5,12 +5,11 @@
 
 extern int success;
 
-struct User {
+typedef struct User {
     char name[MAX_INDEX];
     int password[4];
-};
+} User;
 
 void signup(void);
-void login(void);
-
+void login(char* name, int* password);
 #endif

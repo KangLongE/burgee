@@ -1,4 +1,4 @@
-ï»¿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #define MAX_INDEX 1024
 #include <stdio.h>
 #include <time.h>
@@ -6,169 +6,73 @@
 #include <string.h>
 #include "question_data.h"
 
-double point = 0;
+//¹®Á¦ Ãâ·Â ÆÄÀÏ
+//¹®Á¦¸¦ Ãâ·ÂÇÏ·Á¸é ÀÌ ÆÄÀÏÀ» ½ÇÇà
+//Æ÷ÀÎÆ® ÀúÀå, ·©Å· µî·Ï, °á°ú Ãâ·Â±îÁö ÇÑ ¹ø¿¡ ´ÙÇÔ
 
-int* correct_if(N1* c, int* un, int n) {
+void main(int argc, char * argv) {
+// argc: ÀÎÀÚ °³¼ö, argv: ÀÎÀÚ ¹è¿­
 
-    int* true_answer = (int*)malloc(sizeof(int) * n);
+    int num = atoi(argv[1]);
+	// ¹®Á¦ °³¼ö (1 ~ 3)
 
-    if (true_answer == NULL) {
-        printf("ë©”ëª¨ë¦¬ í• ë‹¹ ì‹¤íŒ¨\n");
-        exit(1);
-    }
+    N1* carry = NULL;
+	// ¹®Á¦¸¦ ´ãÀ» ±¸Á¶Ã¼ Æ÷ÀÎÅÍ
 
-    for (int i = 0; i < n; i++) {
+    int* user_answer = (int*)malloc(sizeof(int) * (num * 10));
+	// »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¤´äÀ» ÀúÀåÇÒ ¹è¿­
 
-        if (un[i] == c[i].correct_answer) {
+    carry = question_suffle(num * 10);
+	// question_logic.c (question_data.h)
+	// ¹®Á¦¸¦ ¼¯°í carry±¸Á¶Ã¼ Æ÷ÀÎÅÍ·Î °¡¸®Å´
 
-            true_answer[i] = 1;
+    if (argc == 1) {
+// ÀÎÀÚ°³¼ö°¡ 1ÀÌ¸é ¹®Á¦ Ãâ·Â ¸ğµå
+        while (1) {
+			// ÀÎÀÚ ¹øÈ£ 1Àº ¹®Á¦ °³¼ö 1 ~ 3
+
+            if (num >= 1 && num <= 3) {
+
+                for (int i = 0; i < num * 10; i++) {
+
+                    printf("%s\n%s\n", carry[i].question[0], carry[i].question[1]);
+					fflush(stdout);
+                    // ¹®Á¦ Ãâ·Â (¹®Á¦ ¹øÈ£, ¹®Á¦ ³»¿ë)
+
+                    for (int k = 0; k < 5; k++) {
+                        printf("%s\n", carry[i].options[carry[i].indices[k]]);
+                        fflush(stdout);
+                        // ¼¯ÀÎ º¸±â Ãâ·Â (1~5·Î ¹øÈ£ ¸Å±â±â)
+                    }
+
+                }
+
+            }
         }
-        else {
-            true_answer[i] = 0;
-        }
-        // ì •ë‹µ ë¹„êµ (ì •ë‹µì´ë©´ 1, í‹€ë¦¬ë©´ 0 ì €ì¥)
-
     }
+    else {
+// ÀÎÀÚ°³¼ö°¡ ¿©·Á°³ ÀÌ»óÀÌ¸é Á¤´ä È®ÀÎ ¸ğµå
 
-    for (int i = 0; i < n; i++) {
-        if (true_answer[i]) {
-
-            printf("ë¬¸ì œ%d : ì •ë‹µ!\n", i + 1);
-            point++;
+        for (int i = 0; i < num * 10; i++) {
+			user_answer[i] = atoi(argv[2 + i]);
+            // ¾ÈÀÚ ¹øÈ£ 1Àº ¹®Á¦ °³¼ö
+			// 2¹øºÎÅÍ´Â »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¤´ä
         }
-        else
-            printf("ë¬¸ì œ%d : í‹€ë¦¼.. (ë‹µ : %d)\n", i + 1, c[i].correct_answer);
+
+        correct_if(carry, user_answer, num * 10);
+		// question_logic.c     (question_data.h)
+		// Á¤´ä È®ÀÎ ÇÔ¼ö È£Ãâ
+        save_point(point);
+		// point.c      (question_data.h)
+		// Á¤´ä È®ÀÎ ¹× Æ÷ÀÎÆ® ÀúÀå
+
+        point = 0;
+        // ¹®Á¦ Ç®ÀÌ ÈÄ Á¡¼ö ÃÊ±âÈ­
+        ranking();
+		// ranking.c    (question_data.h)
+		// ·©Å· ¾÷µ¥ÀÌÆ®
     }
-    //ì •ë‹µ í™•ì¸
-
-
-
-    printf("\nì´ %dë¬¸ì œ ì¤‘ %dë¬¸ì œ ë§ì·„ìŠµë‹ˆë‹¤.\n", n, (int)point);
-    printf("ì ìˆ˜ : %.4f%%\n", (float)point / n * 100);
-    // ì ìˆ˜ ì¶œë ¥ (ë§ì¶˜ ë¬¸ì œ ìˆ˜, ì´ ë¬¸ì œ ìˆ˜, ë°±ë¶„ìœ¨)
-
-    point = (point / n) * 100;
-
-    return true_answer;
 }
 
-
-N1* question_print(int n) {
-
-    N1* q = (N1*)malloc(sizeof(N1) * n);
-    N1* c = q;
-
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < 5; j++) {
-            q[i].indices[j] = j;
-        }
-    }
-
-    srand((unsigned int)time(NULL));
-
-    FILE* fp;
-    fp = fopen("question.txt", "r");
-    // ë¬¸ì œê°€ ì €ì¥ëœ íŒŒì¼ ì—´ê¸°
-
-    if (fp == NULL) {
-		perror("íŒŒì¼ ì—´ê¸° ì‹¤íŒ¨");
-		exit(1);
-    }
-
-    int i = 0;
-    int* number = (int*)malloc(sizeof(int) * n);
-
-    while (i < n) {
-
-        int random = rand() % 30 + 1; // íŒŒì¼ì— ìˆëŠ” ì´ ë¬¸ì œ ìˆ˜ ì…ë ¥
-        int nk = 1;
-
-        for (int j = 0; j < i; j++) {
-            if (number[j] == random) {
-                nk = 0;
-                break;
-            }
-        }
-
-
-        if (nk) {
-            number[i] = random;
-            i++;
-        }
-        // ì¤‘ë³µë˜ì§€ ì•ŠëŠ” ëœë¤ ë²ˆí˜¸ ìƒì„±
-    }
-
-    for (int i = 0; i < n; i++) {
-        // ë¬¸ì œ ìˆ˜ ë§Œí¼ ì¶œë ¥ ë°˜ë³µ
-
-        rewind(fp);
-        int line_num = 0;
-
-
-        char line[MAX_INDEX];
-        // í•œ ì¤„ì”© ì½ê¸° ìœ„í•œ ë³€ìˆ˜
-        int target = number[i];
-        int start_line = target * 8;
-        // ë¬¸ì œ ë²ˆí˜¸ì— í•´ë‹¹í•˜ëŠ” ì¤„ ë²ˆí˜¸ ê³„ì‚°
-        // í•´ë‹¹ ë¬¸ì œ ì‹œì‘ ì¤„ (ë¬¸ì œë‹¹ 8ì¤„)
-
-        int curr_line = 0;
-        // í˜„ì¬ ì¤„ ë²ˆí˜¸
-        int correct_idx = -1;
-        // ì •ë‹µ ì¸ë±ìŠ¤ ë²ˆí˜¸
-
-        // ì§ˆë¬¸, ë³´ê¸°, ì •ë‹µ ì½ê¸°
-        while (fgets(line, sizeof(line), fp)) {
-            if (curr_line == start_line) strcpy(q[i].question[0], line);
-            // ë¬¸ì œ ì½ê¸° 1
-            else if (curr_line == start_line + 1) strcpy(q[i].question[1], line);
-            // ë¬¸ì œ ì½ê¸° 2
-            else if (curr_line >= start_line + 2 && curr_line < start_line + 7) {
-                // ë³´ê¸° ë²”ìœ„ 2~6ì¤„ ì½ê¸°
-                strcpy(q[i].options[curr_line - start_line - 2], line);
-            }
-            else if (curr_line == start_line + 7) {
-                correct_idx = atoi(line) - 1;
-                // ì •ë‹µ ì¸ë±ìŠ¤ ì½ê¸°
-                break;
-            }
-            curr_line++;
-        }
-
-
-        // ë³´ê¸° ì„ê¸°
-        shuffle(q[i].indices, 5);
-
-        int new_correct = -1;
-        // ìƒˆë¡œìš´ ì •ë‹µ ì¸ë±ìŠ¤
-        for (int k = 0; k < 5; k++) {
-            if (q[i].indices[k] == correct_idx) {
-                // ì„ì¸ ë³´ê¸°ì—ì„œ ì •ë‹µ ì¸ë±ìŠ¤ ì°¾ê¸°
-                new_correct = k + 1;
-                q[i].correct_answer = new_correct;
-                // í•´ë‹¹ ë¬¸ì œì— ì •ë‹µ ì €ì¥ (ì‚¬ìš©ì ë³´ê¸° 1~5ë¡œ ë²ˆí˜¸ ë§¤ê¸°ê¸°)
-                break;
-            }
-        }
-
-
-    }
-
-    free(number);
-
-    fclose(fp);
-
-    return q;
-
-}
-
-
-void shuffle(int* arr, int size) {
-    for (int i = size - 1; i > 0; i--) {
-        int j = rand() % (i + 1);  // 0ë¶€í„° iê¹Œì§€ ì¤‘ ëœë¤ ì¸ë±ìŠ¤
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-}
+        
+    

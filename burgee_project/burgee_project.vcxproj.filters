@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="question_print.c">
+    <ClCompile Include="question_logic.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="point.c">
@@ -34,6 +34,18 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ranking.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="signup_print.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="login_print.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="question_print.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="note_print.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

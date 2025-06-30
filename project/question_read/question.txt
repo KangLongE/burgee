@@ -284,3 +284,4 @@ void func(int arr[10][10]);
 void func(*arr[10][10]);
 void func(arr[][]);
 3
+음찰승 바보

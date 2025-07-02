@@ -1,0 +1,6 @@
+﻿  login_print.c
+  main.c
+  코드를 생성하고 있습니다...
+\main.c(1,1): error C1083: 소스 파일을 열 수 없습니다. 'main.c': No such file or directory
+  (소스 파일 '/main.c'을(를) 컴파일하는 중)
+  

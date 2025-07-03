@@ -1,0 +1,20 @@
+﻿  login.c
+  note_print.c
+  question_print.c
+  signup_print.c
+C:\Users\user\Desktop\burgee_project - c - 복사본\question_print.c(541,40): warning C4244: '초기화 중': '__int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  login_print.c
+  main.c
+\main.c(1,1): error C1083: 소스 파일을 열 수 없습니다. 'main.c': No such file or directory
+  (소스 파일 '/main.c'을(를) 컴파일하는 중)
+  
+  signup.c
+  note.c
+C:\Users\user\Desktop\burgee_project - c - 복사본\note.c(20,34): warning C4133: '함수': 'char [14]'과(와) 'LPCWSTR' 사이의 형식이 호환되지 않습니다.
+C:\Users\user\Desktop\burgee_project - c - 복사본\note.c(31,55): warning C4133: '함수': 'WCHAR [260]'과(와) 'const char *' 사이의 형식이 호환되지 않습니다.
+C:\Users\user\Desktop\burgee_project - c - 복사본\note.c(45,34): warning C4133: '함수': 'char [14]'과(와) 'LPCWSTR' 사이의 형식이 호환되지 않습니다.
+  question_logic.c
+  point.c
+  ranking.c
+C:\Users\user\Desktop\burgee_project - c - 복사본\ranking.c(80,25): warning C4244: '초기화 중': '__int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...

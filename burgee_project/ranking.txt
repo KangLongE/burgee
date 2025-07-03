@@ -1,0 +1,6 @@
+1) kang : 100
+2) eum : 30
+3) eum : 23
+4) eum : 10
+5) ubin : 9
+6) soon : 8

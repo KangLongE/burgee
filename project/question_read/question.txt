@@ -64,11 +64,11 @@ if x = 5 {}
 1
 다음 중 C 언어에서 올바른 문자열 초기화는?
 
-1. char str[5] = "hello";
-2. char str[] = "hello";
-3. char str[4] = "hello";
-4. char str[6] = {'h','e','l','l','o'};
-5. char str[] = {'h','e','l','l','o','!'};
+char str[5] = "hello";
+char str[] = "hello";
+char str[4] = "hello";
+char str[6] = {'h','e','l','l','o'};
+char str[] = {'h','e','l','l','o','!'};
 2
 다음 중 C 언어에서 배열과 포인터의 차이점으로 올바른 것은?
 
@@ -190,14 +190,6 @@ char
 double  
 void  
 1
-다음 중 C 언어에서 함수 포인터 선언으로 올바른 것은?
-
-int (*fp)(int, int);  
-int *fp(int, int);  
-(*int fp)(int, int);  
-int (fp*)(int, int);  
-int fp(int, int);  
-1
 다음 중 C 언어에서 문자 하나를 입력받는 함수는?
 
 getchar()  
@@ -222,22 +214,6 @@ enum
 float  
 short  
 4
-다음 중 C 언어에서 반복문에 해당하지 않는 것은?
-
-for  
-while  
-do-while  
-repeat  
-goto  
-4
-다음 중 C 언어에서 배열 이름이 의미하는 것은?
-
-배열의 첫 번째 요소의 주소  
-배열 전체 값  
-배열 요소의 개수  
-배열의 크기  
-배열의 자료형  
-1
 다음 중 C 언어에서 NULL 포인터의 용도는?
 
 초기화되지 않은 포인터 표시  
@@ -253,14 +229,6 @@ strcpy()
 strcat()  
 strcmp()  
 sizeof()  
-1
-다음 중 C 언어에서 const 키워드의 의미는?
-
-상수로 선언되어 값 변경 불가  
-전역 변수 선언  
-메모리 초기화  
-포인터 선언  
-함수 호출  
 1
 다음 중 C 언어에서 논리 연산자가 아닌 것은?
 
@@ -286,14 +254,6 @@ sizeof()
 함수 매개변수로만 사용 가능  
 메인 함수에서만 사용 가능  
 1
-다음 중 C 언어에서 문자 ‘A’를 아스키 코드 값으로 저장하는 방법은?
-
-char ch = 'A';  
-char ch = "A";  
-char ch = 65;  
-int ch = "A";  
-char ch = A;  
-1
 다음 중 C 언어에서 파일을 쓰기 모드로 여는 함수는?
 
 fopen("file.txt", "w");  
@@ -301,14 +261,6 @@ fwrite("file.txt", "r");
 fopen("file.txt", "a+");  
 open("file.txt", "w");  
 write("file.txt", "w");  
-1
-다음 중 C 언어에서 typedef의 용도로 가장 적절한 것은?다음 중 C 언어에서 구조체의 정의가 올바른 것은?
-
-struct Point { int x; int y; };  
-Point struct { x; y; };  
-int struct Point(x, y);  
-define struct Point { int x, y; };  
-struct { int x, y } Point;  
 1
 다음 중 C 언어에서 포인터와 배열의 공통점은?
 
@@ -333,14 +285,6 @@ int
 long  
 float  
 char  
-1
-다음 중 C 언어에서 파일 끝을 확인하는 함수는?
-
-feof()  
-ferror()  
-fclose()  
-fgetc()  
-rewind()  
 1
 다음 중 C 언어에서 파일 끝을 확인하는 함수는?
 
@@ -406,14 +350,6 @@ require <stdio.h>
 add <stdio.h>
 link <stdio.h>
 1
-다음 중 C 언어에서 switch 문 내에서 사용 가능한 키워드는?
-
-case  
-continue  
-default  
-break  
-모두 해당  
-1
 다음 중 C 언어에서 포인터가 NULL인지 확인하는 방법으로 올바른 것은?
 
 if (ptr == NULL)
@@ -469,16 +405,8 @@ stdout
 stderr
 stdfile
 input
-1
-다음 중 C 언어에서 문자열 길이를 반환하는 함수는?
-
-strlen()
-strcpy()
-strcat()
-strchr()
-strcmp()
-1
-다음 중 C 언어에서 컴파일 에러가 발생하는 경우는?
+1  
+다음 중 C 언어에서 컴파일 에러가 발생하는 경우가 아닌 것은?
 
 정의되지 않은 변수 사용
 0으로 나누기
@@ -494,7 +422,7 @@ strcmp()
 포인터 초기화 값
 0이 아닌 주소
 1
-다음 중 C 언어에서 구조체 변수에 값을 대입하는 올바른 문법은?
+다음 중 C 언어에서 구조체 변수에 값을 대입하는 올바른 문법은? 검토 
 
 p.x = 10;
 p->x = 10;
@@ -502,14 +430,6 @@ p->x = 10;
 x.p = 10;
 p:x = 10;
 1
-다음 중 C 언어에서 반복문이 아닌 것은?
-
-do-while
-while
-for
-goto
-switch
-5
 다음 중 C 언어의 전처리기 지시문이 아닌 것은?
 
 #include
@@ -518,22 +438,6 @@ switch
 #undef
 #if
 3
-다음 중 C 언어에서 const 키워드의 역할은?
-
-변경 불가능한 변수 선언
-전역 변수 선언
-정수형 선언
-함수 선언
-헤더 포함
-1
-다음 중 C 언어에서 배열 이름이 의미하는 것은?
-
-배열의 첫 번째 요소의 주소
-배열의 전체 값
-배열의 크기
-배열의 끝 주소
-배열의 요소 수
-1
 다음 중 C 언어에서 포인터의 크기(바이트)는 무엇에 따라 결정되는가?
 
 컴파일러 및 시스템 아키텍처
@@ -614,14 +518,6 @@ strcpy()
 strcat()
 strlen()
 1
-다음 중 C 언어에서 포인터 선언이 올바른 것은?
-
-int *ptr;
-*int ptr;
-ptr *int;
-int ptr*;
-int -> ptr;
-1
 다음 중 C 언어에서 배열의 마지막 인덱스를 구하는 공식으로 가장 적절한 것은?
 
 크기 - 1
@@ -636,7 +532,7 @@ int -> ptr;
 ||  
 !  
 ^  
-!=  
+&  
 4
 다음 중 C 언어에서 변수에 저장된 값을 출력하는 함수는?
 
@@ -661,14 +557,6 @@ float
 int
 double
 void
-1
-다음 중 C 언어에서 반복을 무한히 수행하도록 만든 while문은?
-
-while(1)
-while(0)
-while(NULL)
-while(x == y)
-while(false)
 1
 다음 중 C 언어에서 반복을 무한히 수행하도록 만든 while문은?
 
@@ -710,14 +598,6 @@ include
 값의 실제 내용
 함수 포인터
 1
-다음 중 C 언어에서 switch문에 사용할 수 없는 타입은?
-
-int
-char
-float
-enum
-short
-3
 다음 중 C 언어에서 main 함수가 호출되는 횟수는?
 
 1회
@@ -750,30 +630,6 @@ scanf()
 free()
 realloc()
 1
-다음 중 C 언어에서 구조체 멤버에 접근하기 위한 연산자는?
-
-.
-::
->
-->
-[]
-5
-다음 중 C 언어에서 문자열을 복사하는 함수는?
-
-strcpy()
-strcat()
-strlen()
-strcmp()
-sprintf()
-1
-다음 중 C 언어에서 메모리를 해제하는 함수는?
-
-free()
-malloc()
-alloc()
-exit()
-null()
-1
 다음 중 C 언어에서 포인터가 NULL인지 확인하는 올바른 조건문은?
 
 if(ptr == NULL)
@@ -789,12 +645,4 @@ if(ptr = NULL)
 정수 전용
 함수 포인터만 저장 가능
 주소가 없음
-1
-다음 중 C 언어에서 함수 포인터 선언이 올바른 것은?
-
-int (*fp)(int, int);
-int *fp(int, int);
-(*int) fp(int, int);
-fp(*int)(int, int);
-int (fp*)(int, int);
 1

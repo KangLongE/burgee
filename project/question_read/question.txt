@@ -308,8 +308,9 @@ struct Point { int x; int y; };
 Point struct { x; y; };  
 int struct Point(x, y);  
 define struct Point { int x, y; };  
+struct { int x, y } Point;  
 1
-struct { int x, y } Point;  다음 중 C 언어에서 포인터와 배열의 공통점은?
+다음 중 C 언어에서 포인터와 배열의 공통점은?
 
 이름이 주소를 나타냄  
 모두 함수이다  
@@ -332,12 +333,6 @@ int
 long  
 float  
 char  
-1
-자료형에 새로운 이름 정의  
-함수의 반환값 설정  
-포인터 초기화  
-함수 오버로딩  
-메모리 할당  
 1
 다음 중 C 언어에서 파일 끝을 확인하는 함수는?
 
@@ -674,7 +669,8 @@ while(0)
 while(NULL)
 while(x == y)
 while(false)
-1다음 중 C 언어에서 반복을 무한히 수행하도록 만든 while문은?
+1
+다음 중 C 언어에서 반복을 무한히 수행하도록 만든 while문은?
 
 while(1)
 while(0)
